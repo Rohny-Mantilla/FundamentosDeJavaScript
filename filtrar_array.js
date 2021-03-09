@@ -24,4 +24,14 @@ var personas = [rohny, pamela, abigail];
 var personasAltas = personas.filter(esAlta);
 var personasBajas = personas.filter(esBaja);
 
-console.log(personasBajas);
+const pasarAlturaACms = (persona) => {
+  //para no midificar el array original(se crea objetos totalmente distintos)
+  return {
+    ...persona,
+    altura: persona.altura * 100,
+  };
+};
+
+var personasCms = personas.map(pasarAlturaACms);
+
+console.log(personasCms);
