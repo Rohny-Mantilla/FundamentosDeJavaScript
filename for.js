@@ -9,25 +9,24 @@ console.log(`Al inicio del año ${rohny.nombre} pesa ${rohny.peso} kilogramos`);
 //3 partes, parte inicial, parte de la condicion, y el incremento
 //var i : es un contador
 
-const INCREMENTO_PESO = 0.2;
+const INCREMENTO_PESO = 0.3;
 
-const aumentarDePeso = (persona) => {
-  persona.peso += INCREMENTO_PESO;
-};
+const aumentarDePeso = (persona) => (persona.peso += INCREMENTO_PESO);
 const adelgazar = (persona) => (persona.peso -= INCREMENTO_PESO);
+const comeMucho = () => Math.random() < 0.3;
+const realizaDeporte = () => Math.random() < 0.4;
+var dias = 0;
 
-for (var i = 1; i <= 365; i++) {
-  var random = Math.random();
-  if (random < 0.25) {
+const META = rohny.peso - 3;
+
+while (rohny.peso > META) {
+  if (comeMucho()) {
     aumentarDePeso(rohny);
-  } else if (random < 0.5) {
+  }
+  if (realizaDeporte()) {
     adelgazar(rohny);
   }
+  dias += 1;
 }
 
-console.log(
-  `Al final del del año ${rohny.nombre} pesa ${rohny.peso.toFixed(
-    1
-  )} kilogramos`
-);
-//final
+console.log(`Pasaron ${dias} dias hasta que ${rohny.nombre} andelgazo 3 kilos`);
