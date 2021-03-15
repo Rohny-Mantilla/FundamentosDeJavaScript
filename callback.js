@@ -4,22 +4,21 @@ const PEOPLE_URL = "people/:id";
 const lukUrl = `${API_URL}${PEOPLE_URL.replace(":id", 1)}`;
 const opts = { crossDomain: true };
 
-function obtenerPersonaje(id, callback) {
-  const Url = `${API_URL}${PEOPLE_URL.replace(":id", id)}`;
-
-  $.get(Url, opts, callback).fail(() => {
-    console.log(`Sucedio un error. No se pudo obtener el personaje ${id} `);
+function obtenerPersonaje(id) {
+  return new Promise((resolve, reject) => {
+    const Url = `${API_URL}${PEOPLE_URL.replace(":id", id)}`;
+    $.get(Url, opts, function (data) {
+      resolve(data);
+    }).fail(() => reject(id));
   });
 }
 
-obtenerPersonaje(1, function (personaje) {
-  console.log(`Hola, yo soy ${personaje.name}`);
+function onError(id) {
+  console.log(`Susedio un error al obtener el personaje ${id}`);
+}
 
-  obtenerPersonaje(2, function (personaje) {
-    console.log(`Hola, yo soy ${personaje.name}`);
-
-    obtenerPersonaje(3, function (personaje) {
-      console.log(`Hola, yo soy ${personaje.name}`);
-    });
-  });
-});
+obtenerPersonaje(1)
+  .then(function (personaje) {
+    console.log(`El personaje 1 es ${personaje.name}`);
+  })
+  .catch(onError);
